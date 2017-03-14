@@ -2,24 +2,24 @@ import unittest
 
 
 class TestSortMethod(unittest.TestCase):
+    def setUp(self):
+        self.a_list = List([4, 7, 5, 6])
+
     def test_sorted(self):
-        a_list = List([4, 7, 5, 6])
-        a_list.sort()
+        self.a_list.sort()
         sorted_list = a_list.get_list()
         for i in range(len(sorted_list)-1):
             self.assertTrue(sorted_list[i] <= sorted_list[i+1])
 
     def test_positive(self):
-        a_list = List([-1, 2, 4, -3, 6])
-        a_list.remove_neg()
-        pos_list = a_list.get_list()
+        self.a_list.remove_neg()
+        pos_list = self.a_list.get_list()
         for x in pos_list:
             self.assertTrue(x >= 0)
 
     def test_pos_sort(self):
-        a_list = List([-1, 2, 4, -3, 6])
-        a_list.pos_sort()
-        pos_sorted = a_list.get_list()
+        self.a_list.pos_sort()
+        pos_sorted = self.a_list.get_list()
         for i, x in enumerate(pos_sorted):
             if i < len(pos_sorted)-1:
                 self.assertTrue(x >= 0)
@@ -27,8 +27,11 @@ class TestSortMethod(unittest.TestCase):
             else:
                 self.assertTrue(x >= 0)
 
+    def tearDown(self):
+        self.a_list.dispose()
 
-class List:
+
+class List(list):
     def __init__(self, list):
         self.list = list
 
